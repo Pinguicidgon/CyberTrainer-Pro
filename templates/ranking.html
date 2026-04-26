@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-header">
+  <div>
+    <h2>Ranking de usuarios</h2>
+    <p>Comparativa visual del rendimiento de los usuarios en contraseñas y detección de phishing.</p>
+  </div>
+</section>
+
+<section class="grid-two">
+  <article class="card">
+    <h3>Media de contraseñas por usuario</h3>
+    <canvas id="passwordChart"></canvas>
+  </article>
+
+  <article class="card">
+    <h3>% de acierto en phishing</h3>
+    <canvas id="phishingChart"></canvas>
+  </article>
+</section>
+
+<section class="card large-card">
+  <h3>Clasificación general</h3>
+
+  {% if ranking_data %}
+    <div class="table-wrapper">
+      <table class="ranking-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Usuario</th>
+            <th>Contraseñas evaluadas</th>
+            <th>Media contraseñas</th>
+            <th>Simulaciones phishing</th>
+            <th>Aciertos phishing</th>
+            <th>% acierto</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for user in ranking_data %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ user.username }}</td>
+              <td>{{ user.total_passwords }}</td>
+              <td>{{ user.avg_password_score }}/100</td>
+              <td>{{ user.total_phishing }}</td>
+              <td>{{ user.phishing_correct }}</td>
+              <td>{{ user.phishing_accuracy }}%</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p>Todavía no hay datos suficientes para mostrar el ranking.</p>
+  {% endif %}
+</section>
+
+<script>
+  const labels = {{ chart_labels | tojson }};
+  const passwordScores = {{ chart_password_scores | tojson }};
+  const phishingAccuracy = {{ chart_phishing_accuracy | tojson }};
+
+  new Chart(document.getElementById("passwordChart"), {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "Media de contraseñas",
+        data: passwordScores,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100
+        }
+      }
+    }
+  });
+
+  new Chart(document.getElementById("phishingChart"), {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        label: "% acierto phishing",
+        data: phishingAccuracy,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100
+        }
+      }
+    }
+  });
+</script>
+{% endblock %}

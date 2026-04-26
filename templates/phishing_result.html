@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-header">
+  <div>
+    <h2>Resultado de la simulación</h2>
+    <p>Evaluación de tu decisión sobre el correo seleccionado.</p>
+  </div>
+</section>
+
+<section class="card large-card">
+  <h3>{{ result_title }}</h3>
+  <p>{{ result_message }}</p>
+
+  <div class="result-box">
+    <p><strong>Asunto:</strong> {{ email.subject }}</p>
+    <p>
+      <strong>Acción realizada:</strong>
+      {% if action == "click" %}
+        Pulsar enlace
+      {% elif action == "report" %}
+        Marcar como sospechoso
+      {% endif %}
+    </p>
+    <p><strong>Explicación:</strong> {{ explanation }}</p>
+  </div>
+</section>
+
+<section class="card">
+  <div class="button-row">
+    <a class="button-link" href="{{ url_for('phishing') }}">Volver a la bandeja</a>
+    <a class="button-link secondary-button" href="{{ url_for('open_phishing_email', email_id=email.id) }}">
+      Volver al correo
+    </a>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "from": "soporte@micros0ft-security.com",
+    "subject": "Acción urgente: verifique su cuenta ahora",
+    "body": "Se ha detectado una actividad sospechosa en su cuenta corporativa. Para evitar el bloqueo permanente, pulse en el siguiente enlace de validación.",
+    "link_text": "Verificar cuenta",
+    "is_phishing": true,
+    "explanation": "El dominio suplanta una marca conocida y utiliza urgencia para forzar la acción del usuario."
+  },
+  {
+    "id": 2,
+    "from": "rrhh@empresa-oficial.com",
+    "subject": "Actualización del calendario de vacaciones",
+    "body": "Ya está disponible el calendario actualizado de vacaciones. Puede consultarlo accediendo al portal interno desde el siguiente enlace.",
+    "link_text": "Abrir portal de vacaciones",
+    "is_phishing": false,
+    "explanation": "Es un mensaje corporativo coherente, sin petición de credenciales ni señales de manipulación."
+  },
+  {
+    "id": 3,
+    "from": "seguridad@paypaI-alerts.com",
+    "subject": "Su cuenta será suspendida hoy",
+    "body": "Confirme sus datos en menos de 12 horas para evitar la suspensión definitiva del servicio. Pulse en el siguiente enlace.",
+    "link_text": "Confirmar datos",
+    "is_phishing": true,
+    "explanation": "Usa urgencia, solicita una acción sensible y suplanta una marca mediante un remitente engañoso."
+  },
+  {
+    "id": 4,
+    "from": "it@universidadnebrija.es",
+    "subject": "Mantenimiento programado del campus virtual",
+    "body": "El próximo sábado se realizará una ventana de mantenimiento. Puede consultar el aviso completo en el portal institucional.",
+    "link_text": "Ver aviso completo",
+    "is_phishing": false,
+    "explanation": "El contenido es informativo, el dominio es coherente y no se detectan señales de manipulación."
+  },
+  {
+    "id": 5,
+    "from": "facturacion@proveedor-pagos-secure.net",
+    "subject": "Factura pendiente de validación",
+    "body": "Su última factura no ha podido procesarse correctamente. Revise el detalle del pago accediendo al siguiente enlace.",
+    "link_text": "Revisar factura",
+    "is_phishing": true,
+    "explanation": "Intenta generar presión sobre un pago y dirige al usuario a una acción potencialmente peligrosa."
+  }
+]

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-header">
+  <div>
+    <h2>Bandeja de entrada simulada</h2>
+    <p>Accede a los correos recibidos y analiza si el contenido puede suponer un riesgo.</p>
+  </div>
+</section>
+
+<section class="grid-two">
+  <article class="card">
+    <h3>Correos recibidos</h3>
+
+    {% if emails %}
+      <div class="history-list">
+        {% for email in emails %}
+          <a class="email-list-item" href="{{ url_for('open_phishing_email', email_id=email.id) }}">
+            <div>
+              <p><strong>{{ email.subject }}</strong></p>
+              <p>De: {{ email.from }}</p>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No hay correos disponibles.</p>
+    {% endif %}
+  </article>
+
+  <article class="card">
+    <h3>Últimos resultados</h3>
+
+    {% if history %}
+      <div class="history-list">
+        {% for item in history %}
+          <div class="history-item">
+            <p><strong>{{ item.subject }}</strong></p>
+            <p>
+              {% if item.correct %}
+                Gestión correcta
+              {% else %}
+                Has caído en phishing
+              {% endif %}
+              — {{ item.date }}
+            </p>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>Todavía no has interactuado con ningún correo.</p>
+    {% endif %}
+  </article>
+</section>
+{% endblock %}

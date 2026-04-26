@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-header">
+  <div>
+    <h2>Correo abierto</h2>
+    <p>Revisa cuidadosamente el mensaje antes de decidir qué hacer con él.</p>
+  </div>
+</section>
+
+<section class="card large-card">
+  <div class="email-box">
+    <p><strong>De:</strong> {{ email.from }}</p>
+    <p><strong>Asunto:</strong> {{ email.subject }}</p>
+    <hr>
+    <p>{{ email.body }}</p>
+
+    <div class="button-row">
+      <a class="button-link" href="{{ url_for('phishing_action', email_id=email.id, action='click') }}">
+        {{ email.link_text }}
+      </a>
+
+      <a class="button-link secondary-button" href="{{ url_for('phishing_action', email_id=email.id, action='report') }}">
+        Marcar como sospechoso
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="card">
+  <h3>Recomendación</h3>
+  <p>
+    Antes de actuar, conviene revisar el remitente, el dominio, el lenguaje del mensaje,
+    la urgencia del contenido y si realmente tiene sentido dentro del contexto empresarial.
+  </p>
+</section>
+{% endblock %}

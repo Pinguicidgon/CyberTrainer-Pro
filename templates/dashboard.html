@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-header">
+  <div>
+    <h2>Panel principal</h2>
+    <p>Bienvenido, {{ username }}. Aquí tienes un resumen visual de tu actividad en la plataforma.</p>
+  </div>
+</section>
+
+<section class="card large-card">
+  <h3>Resumen general</h3>
+  <p>
+    Este panel muestra el estado actual del usuario en relación con el uso de contraseñas
+    y la detección de correos de phishing dentro del simulador.
+  </p>
+</section>
+
+<section class="stats-grid">
+  <article class="stat-card">
+    <h3>Comprobaciones de contraseña</h3>
+    <p class="stat-number">{{ stats.total_password_checks }}</p>
+  </article>
+
+  <article class="stat-card">
+    <h3>Simulaciones de phishing</h3>
+    <p class="stat-number">{{ stats.total_phishing_answers }}</p>
+  </article>
+
+  <article class="stat-card">
+    <h3>Acierto en phishing</h3>
+    <p class="stat-number">{{ stats.phishing_accuracy }}%</p>
+  </article>
+
+  <article class="stat-card">
+    <h3>Puntuación media de contraseñas</h3>
+    <p class="stat-number">{{ stats.average_password_score }}/100</p>
+  </article>
+</section>
+
+<section class="grid-two">
+  <article class="card">
+    <h3>Evolución de contraseñas</h3>
+    <canvas id="dashboardPasswordChart"></canvas>
+  </article>
+
+  <article class="card">
+    <h3>Resultados de phishing</h3>
+    <canvas id="dashboardPhishingChart"></canvas>
+  </article>
+</section>
+
+<section class="card large-card">
+  <h3>Nivel de riesgo estimado</h3>
+  <div class="risk risk-{{ stats.risk_level|lower }}">{{ stats.risk_level }}</div>
+  <p>
+    Este valor se calcula a partir de la calidad media de las contraseñas evaluadas
+    y de la capacidad del usuario para identificar correos sospechosos.
+  </p>
+</section>
+
+<script>
+  const passwordLabels = {{ password_labels | tojson }};
+  const passwordScores = {{ password_scores |tojson }};
+  const phishingLabels = {{ phishing_labels | tojson }};
+  const phishingScores = {{ phishing_scores| tojson }};
+
+  new Chart(document.getElementById("dashboardPasswordChart"), {
+    type: "bar",
+    data: {
+      labels: passwordLabels,
+      datasets: [{
+        label: "Puntuación de contraseñas",
+        data: passwordScores,
+        borderWidth: 1,
+        borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 100
+        }
+      }
+    }
+  });
+
+  new Chart(document.getElementById("dashboardPhishingChart"), {
+    type: "bar",
+    data: {
+      labels: phishingLabels,
+      datasets: [{
+        label: "Resultado phishing (1 = correcto, 0 = incorrecto)",
+        data: phishingScores,
+        borderWidth: 1,
+        borderRadius: 6
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          max: 1
+        }
+      }
+    }
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,1 @@
+console.log("CyberTrainer Pro cargado correctamente.");

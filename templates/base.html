@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberTrainer Pro</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script defer src="{{ url_for('static', filename='app.js') }}"></script>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <h1>CyberTrainer Pro</h1>
+      <p>Plataforma de concienciación en ciberseguridad</p>
+    </div>
+
+    <nav class="nav">
+      <a href="{{ url_for('home') }}">Dashboard</a>
+      <a href="{{ url_for('passwords') }}">Contraseñas</a>
+      <a href="{{ url_for('phishing') }}">Phishing</a>
+      <a href="{{ url_for('ranking') }}">Ranking</a>
+      <a href="{{ url_for('about') }}">Proyecto</a>
+      <a href="{{ url_for('reset') }}">Reiniciar datos</a>
+      <a href="{{ url_for('logout') }}">Cerrar sesión</a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>
