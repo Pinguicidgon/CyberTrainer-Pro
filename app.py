@@ -224,7 +224,7 @@ def passwords() -> str:
         if password:
             result = evaluate_password(password)
 
-            # 🔥 GUARDAR EN BASE DE DATOS
+            # GUARDAR EN BASE DE DATOS
             conn = get_connection()
             cursor = conn.cursor()
 
